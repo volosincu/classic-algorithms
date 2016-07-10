@@ -47,8 +47,7 @@
 		 (if (< i1 mid)
 		     (cons (aref ARRAY i1) (collect-range (1+ i1) i2))
 		     (if(< i2 hi)
-			(cons (aref ARRAY i2) (collect-range i1 (1+ i2)\
-							     ))))
+			(cons (aref ARRAY i2) (collect-range i1 (1+ i2)))))
 		 )))
     (collect-range lo mid)))
 
@@ -56,35 +55,28 @@
 
 
 
-(print ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;\
-;;;;")
+(print ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;")
 
-(defvar *a-list-a* '( 9 5 1 4 2 19 3 12 8 14 11 16 20 15 18 6 17 7 13 1\
-		     0))
-(setq *unsorted-array* (make-array (length *a-list-a*) :initial-content\
-				   s *a-list-a*))
+(defvar *a-list-a* '( 9 5 1 4 2 19 3 12 8 14 11 16 20 15 18 6 17 7 13 10))
+(setq *unsorted-array* (make-array (length *a-list-a*) :initial-contents *a-list-a*))
 
 (print *unsorted-array*)
 (mergesort 0 20)
 (print *unsorted-array*)
 
-(print ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;\
-;;;;")
+(print ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; ;;;;")
 
 (defvar *a-list-b* '(8 2 3 4 0 1 5 6 9 7))
-(setq *unsorted-array* (make-array (length *a-list-b*) :initial-content\
-				   s *a-list-b*))
+(setq *unsorted-array* (make-array (length *a-list-b*) :initial-contents *a-list-b*))
 
 (print *unsorted-array*)
 (mergesort 0 10)
 (print *unsorted-array*)
 
-(print ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;\
-;;;;")
+(print ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;")
 
 (defvar *a-list-c* '(5 2 1 4 8 3 7 6 0 9))
-(setq *unsorted-array* (make-array (length *a-list-c*) :initial-content\
-				   s *a-list-c*))
+(setq *unsorted-array* (make-array (length *a-list-c*) :initial-contents *a-list-c*))
 
 (print *unsorted-array*)
 (mergesort 0 10)
