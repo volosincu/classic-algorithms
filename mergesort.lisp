@@ -1,6 +1,7 @@
+;; Mergesort is an efficient, general-purpose, comparison-based
+;; sorting algorithm. Mergesort is a divide and conquer algorithm
+;; that was invented by John von Neumann in 1945. [https://en.wikipedia.org/wiki/Merge_sort]
 
-
-;; Rotate an array of n elements to the right by i steps. 
 ;; Copyright (c) 2016 Volosincu Mihai-Bogdan
 
 
@@ -21,11 +22,11 @@
 	   (mergesort mid hi)))
 
     ;; merge step
-    (let ((temp (sort-range *unsorted-array* lo mid hi)))
+    (let ((temp (sort-range *unsorted-list* lo mid hi)))
       (do ((x lo (1+ x))
 	   (tx 0 (1+ tx)))
 	  ((= x hi))
-	(setf (aref *unsorted-array* x) (nth tx temp))))
+	(setf (nth x *unsorted-list*) (nth tx temp))))
     ))
 
 
@@ -33,21 +34,21 @@
 
 ;; collect and sort range between low and high
 
-(defun sort-range (ARRAY lo mid hi)
+(defun sort-range (LIST lo mid hi)
   (labels ((collect-range (i1 i2)
 	     (if (and (< i1 mid) (< i2 hi))
-		 (let ((lv (aref ARRAY i1))
-		       (rv (aref ARRAY i2)))
-
+		 (let ((lv (nth i1 LIST))
+		       (rv (nth i2 LIST)))
+		   
 		   (if(and (< lv rv) (< i1 mid))
 		      (cons lv (collect-range (1+ i1) i2))
 		      (if(<= i2 hi)
 			 (cons rv (collect-range i1 (1+ i2))))
 		      ))
 		 (if (< i1 mid)
-		     (cons (aref ARRAY i1) (collect-range (1+ i1) i2))
+		     (cons (nth i1 LIST) (collect-range (1+ i1) i2))
 		     (if(< i2 hi)
-			(cons (aref ARRAY i2) (collect-range i1 (1+ i2)))))
+			(cons (nth i2 LIST) (collect-range i1 (1+ i2)))))
 		 )))
     (collect-range lo mid)))
 
@@ -57,37 +58,31 @@
 
 (print ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;")
 
-(defvar *a-list-a* '( 9 5 1 4 2 19 3 12 8 14 11 16 20 15 18 6 17 7 13 10))
-(setq *unsorted-array* (make-array (length *a-list-a*) :initial-contents *a-list-a*))
 
-(print *unsorted-array*)
+(defparameter *unsorted-list* '( 9 5 1 4 2 19 3 12 8 14 11 16 20 15 18 6 17 7 13 10))
+
+(print *unsorted-list*)
 (mergesort 0 20)
-(print *unsorted-array*)
+(print *unsorted-list*)
+
+
 
 (print ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; ;;;;")
 
-(defvar *a-list-b* '(8 2 3 4 0 1 5 6 9 7))
-(setq *unsorted-array* (make-array (length *a-list-b*) :initial-contents *a-list-b*))
 
-(print *unsorted-array*)
+(defparameter *unsorted-list* '(8 2 3 4 0 1 5 6 9 7))
+
+(print *unsorted-list*)
 (mergesort 0 10)
-(print *unsorted-array*)
+(print *unsorted-list*)
+
+
 
 (print ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;")
 
-(defvar *a-list-c* '(5 2 1 4 8 3 7 6 0 9))
-(setq *unsorted-array* (make-array (length *a-list-c*) :initial-contents *a-list-c*))
+(defparameter *unsorted-list* '(5 2 1 4 8 3 7 6 0 9))
 
-(print *unsorted-array*)
+(print *unsorted-list*)
 (mergesort 0 10)
-(print *unsorted-array*)
-
-
-
-
-
-
-
-
-
+(print *unsorted-list*)
 
