@@ -1,3 +1,13 @@
+
+;; Heapsort was invented by J. W. J. Williams in 1964.
+;; Heapsort can be thought of as an improved selection sort: like that algorithm,
+;; it divides its input into a sorted and an unsorted region, and it iteratively shrinks
+;; the unsorted region by extracting the largest element and moving that to the
+;; sorted region. [https://en.wikipedia.org/wiki/Heapsort]
+
+
+;; Copyright (c) 2016 Volosincu Mihai-Bogdan
+
 (load "heap.lisp")
 
 
@@ -24,8 +34,6 @@
 	      )
 	)
     ))
-
-
 
 
 
