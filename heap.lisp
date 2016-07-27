@@ -32,9 +32,13 @@
      (setq *dynamic-input* t)))
 
 
-(if(eq *dynamic-input* t)
-   (let ((nodes-count 0))
-     
+
+(let ((nodes-count 0)
+      (default-answer '(7 8 5 6 1 3 0 2 4 9))
+      (user-input '()))
+  
+  (if(eq *dynamic-input* t)
+     (progn
      (format t "Insert how many nodes the heap will have: ")
      (setq nodes-count (read))
      (format t "~%Now please set the values of the ~D ~S ~%~%" nodes-count "nodes.")
@@ -42,26 +46,29 @@
      (do ()
 	 ((= nodes-count (length *readin*)))
        (format t "Insert the ~D'th node ~% " (+ 1 (length *readin*)))
-       (push (read) *readin*)) 
-     )
-   ;;else set default values and build a heap 
-   (setq *readin* '(7 8 5 6 1 3 0 2 4 9)))
+       (push (read) user-input))
+     (setq *readin* (make-array (length user-input) :initial-contents user-input)))
+     ;;else
+     (setq *readin* (make-array (length default-answer) :initial-contents default-answer))))
 
 
+(defun clean-heap (length)
+  (setq *heap*
+	(make-array length
+		    :initial-element nil
+		    :fill-pointer 0))
+  )
 
-(setq *heap*
-      (make-array (length *readin*)
-		  :initial-element nil
-		  :fill-pointer 0))
-
+(clean-heap (length *readin*))
 
 (defun build-heap (lst acc)
-  (if (car lst)
+  (if (> (length lst) 0)
       (let ((fp (fill-pointer *heap*))
-	    (node (car lst)))
+	    (node (aref lst 0)))
+
 	(setf (fill-pointer *heap*) (incf fp))
 	(setf (aref *heap* acc) node)
-	
+
 	;; call recursively swap-nodes function in case child is bigger than parent
 	(labels ((swap-nodes (i)
 		   (if (> i 0)
@@ -74,13 +81,21 @@
 			   ))
 		   ))
 	  (swap-nodes acc))
-	
-	(build-heap (cdr lst) (1+ acc)))))
+
+	(build-heap (make-array (- (length lst) 1)
+			     :displaced-to lst
+			     :displaced-index-offset 1) (1+ acc))
+	*heap*)))
+
 
 
 
 (build-heap *readin* 0)
+(print "Print max heap: ")
 (print *heap*)
+(print "")
+
+  
  
 
 
